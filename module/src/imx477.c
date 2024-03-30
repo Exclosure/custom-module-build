@@ -2293,7 +2293,7 @@ static const struct of_device_id imx477_dt_ids[] = {
 	{ /* sentinel */ }
 };
 
-static int imx477_probe(struct i2c_client *client)
+static int imx477_probe(struct i2c_client *client, const struct i2c_device_id *id)
 {
 	struct device *dev = &client->dev;
 	struct imx477 *imx477;
@@ -2408,7 +2408,7 @@ error_power_off:
 	return ret;
 }
 
-static void imx477_remove(struct i2c_client *client)
+static int imx477_remove(struct i2c_client *client)
 {
 	struct v4l2_subdev *sd = i2c_get_clientdata(client);
 	struct imx477 *imx477 = to_imx477(sd);
@@ -2421,6 +2421,8 @@ static void imx477_remove(struct i2c_client *client)
 	if (!pm_runtime_status_suspended(&client->dev))
 		imx477_power_off(&client->dev);
 	pm_runtime_set_suspended(&client->dev);
+
+    return 0;
 }
 
 MODULE_DEVICE_TABLE(of, imx477_dt_ids);
@@ -2440,8 +2442,9 @@ static struct i2c_driver imx477_i2c_driver = {
 	.remove = imx477_remove,
 };
 
+
 module_i2c_driver(imx477_i2c_driver);
 
 MODULE_AUTHOR("Naushir Patuck <naush@raspberrypi.com>");
-MODULE_DESCRIPTION("Sony IMX477 sensor driver");
+MODULE_DESCRIPTION("Sony IMX477 sensor driver (Exclosure Special)");
 MODULE_LICENSE("GPL v2");

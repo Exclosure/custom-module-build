@@ -9,7 +9,10 @@ services:
         # Modify to the desired balenaOS version
         OS_VERSION: 5.0.8
     privileged: true
+    labels:
+      io.balena.features.kernel-modules: 1
     restart: on-failure
+
   check:
     build:
       context: ./check
