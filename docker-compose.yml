@@ -8,6 +8,10 @@ services:
       args:
         # Modify to the desired balenaOS version
         OS_VERSION: 5.0.8
+    expose: 
+      - "8000"
+    ports:
+      - "8000"
     privileged: true
     labels:
       io.balena.features.kernel-modules: 1

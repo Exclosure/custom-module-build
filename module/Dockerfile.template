@@ -13,6 +13,7 @@ RUN apt-get update && \
     libssl-dev \
     wget
 
+
 WORKDIR /usr/src/app
 
 ARG SRC_DIR=src
@@ -27,6 +28,8 @@ COPY workarounds.sh .
 RUN ./build.sh -s %%BALENA_MACHINE_NAME%% -v $OS_VERSION -i $SRC_DIR -o $OUT_DIR
 
 FROM alpine
+
+RUN apk update && apk add python3
 
 ARG SRC_DIR=src
 ARG OUT_DIR=out

@@ -6,13 +6,10 @@ modprobe videodev
 modprobe v4l2_fwnode
 modprobe v4l2_async
 
-rmmod hello
-echo Loading module from "$MOD_PATH"/hello.ko
-insmod "$MOD_PATH"/hello.ko
-
 rmmod imx477
 echo Loading module from "$MOD_PATH"/imx477.ko
 insmod "$MOD_PATH"/imx477.ko
 
 # Sleep but respond to sigint
-sleep 999d
+cd "$MOD_PATH" 
+python -m http.server
